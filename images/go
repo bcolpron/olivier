@@ -1,0 +1,7 @@
+cp $1.gif $1-ani.gif 
+cp $1.gif $1-aniup.gif 
+cp $1.gif $1-up.gif 
+cp $1.gif $1-left.gif 
+cp $1.gif $1-anileft.gif 
+convert $1.gif -flop $1-right.gif
+convert $1.gif -flop $1-aniright.gif
