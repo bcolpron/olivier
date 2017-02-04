@@ -46,8 +46,10 @@ Bullet.prototype.setDirection = function(direction) {
 }
 
 Bullet.prototype.travel = function() {
-    if (this.target.hits(this.position)) {
+    if (this.target.isCollision(this.position)) {
+        this.target.hit(1);
         this.remove();
+        return;
     }
 
     offset = this.direction * 2 - 1;

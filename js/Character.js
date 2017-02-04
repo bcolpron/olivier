@@ -5,6 +5,7 @@ function Character(x, y, class_) {
     this.setClass(class_);
     this.setPosition(x,y);
     this.setDirection(0);
+    this.life = 30;
 }
 
 Character.prototype.setClass = function(class_) {
@@ -31,6 +32,8 @@ Character.prototype.getPosition = function() {
 }
 
 Character.prototype.setPosition = function(x,y) {
+    if (this.life <= 0) return;
+    
     if  (typeof x === "object") {
         y = x.y;
         x = x.x;
@@ -82,7 +85,9 @@ Character.prototype.remove = function() {
     this.sprites = null;
 }
 
-Character.prototype.hits = function(p) {
+Character.prototype.isCollision = function(p) {
+    if (this.life <= 0) return false;
+    
     if (p.x >= this.position.x && p.x < this.position.x + 5
         && p.y >= this.position.y && p.y < this.position.y + 4)
     {
@@ -94,7 +99,17 @@ Character.prototype.hits = function(p) {
     return false;
 }
 
+Character.prototype.hit = function(dommage) {
+    this.life -= dommage;
+    this.updateLifeLine();
+    if (this.life <= 0) this.remove();
+}
+
+Character.prototype.updateLifeLine = function() {
+    this.sprites.find(".remaining").width(100*this.life/30);
+}
+
 Character.prototype.showLifeLine = function() {
    this.sprites.append($('<div class="lifeline"><div class="total"><div class="remaining"></div></div></div>'));
-    
+   this.updateLifeLine();
 }
