@@ -93,3 +93,8 @@ Character.prototype.hits = function(p) {
     }
     return false;
 }
+
+Character.prototype.showLifeLine = function() {
+   this.sprites.append($('<div class="lifeline"><div class="total"><div class="remaining"></div></div></div>'));
+    
+}

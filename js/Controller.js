@@ -4,6 +4,7 @@ function Controller(character, map) {
     this.loadWorld(map);
     
     this.boss = new Character(8,1, "SkeletronEvolved");
+    this.boss.showLifeLine();
     this.bossPositions = [{x:8,y:1}, {x:6,y:0}, {x:8,y:0}, {x:7,y:1}, {x:8,y:2}, {x:6,y:2}, ];
     this.bossPositionsIndex = 1;
     setInterval($.proxy(function() {this.boss.setPosition(this.bossPositions[this.bossPositionsIndex]); this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) %this.bossPositions.length}, this), 1000);
