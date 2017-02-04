@@ -22,19 +22,8 @@ Controller.prototype.loadWorld = function(world) {
     setTimeout($.proxy(this.setScrollSpeed, this, 1), 10);
     
     var arena = $(".main")
-    arena.empty();
     arena.css("background-color", world.color);
 	this.map = world.map;
-    for(var x=0; x != 13; x++) {
-        for (var y=0; y != 7; y++) {
-            if (this.map[y][x] == 1) {
-                this.addTree(x,y);
-            }
-            if (this.map[y][x] == 2) {
-                this.addPortal(x,y);
-            }
-        }
-    }
 	this.character.setPosition(0,0);
     
 }
@@ -119,7 +108,7 @@ Controller.prototype.move = function() {
             return;
     }
     
-    if (p.x < 0 || p.x > 12 || p.y < 0 || p.y > 6
+    if (p.x < 0 || p.x > 12 || p.y < 0 || p.y > 5
         || this.map[p.y][p.x] == 1 && this.direction == this.UP
         || this.map[this.character.position.y][this.character.position.x] == 1 && this.direction == this.DOWN
         )

@@ -68,4 +68,8 @@ body {
     padding-bottom: 10px;
     float: left;
 }
-
+.background {
+    height: 150px;
+    width: 2000px;
+    background-image: url("../images/forest.jpg");
+}

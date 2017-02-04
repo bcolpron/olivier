@@ -39,7 +39,7 @@ Character.prototype.setPosition = function(x,y) {
     this.position = {x:x, y:y};
     
     var left = this.position.x * 96;
-    var top = this.position.y * 96;
+    var top = this.position.y * 96 + 96;
 
     this.sprites.each(function(i,e){
         e.style.left = left;
