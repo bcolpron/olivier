@@ -5,7 +5,7 @@ function Controller(character, map) {
     
     this.boss = new Character(18,1, "SkeletronEvolved");
     this.boss.showLifeLine();
-    this.bossPositions = [{x:18,y:1}, {x:16,y:0}, {x:18,y:0}, {x:17,y:1}, {x:18,y:2}, {x:16,y:2}, ];
+    this.bossPositions = [{x:18,y:1}, {x:16,y:0}, {x:15,y:0}, {x:14,y:1}, {x:13,y:0}, {x:14,y:1}, {x:15,y:2}, {x:16,y:1}, {x:17,y:0}, {x:18,y:0}, {x:17,y:1}, {x:18,y:2}, {x:17,y:1}, {x:16,y:2}, {x:17,y:1}, ];
     this.bossPositionsIndex = 1;
     setInterval($.proxy(function() {this.boss.setPosition(this.bossPositions[this.bossPositionsIndex]); this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) %this.bossPositions.length}, this), 1000);
 };
