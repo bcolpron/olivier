@@ -3,9 +3,9 @@ function Controller(character, map) {
     this.setMovementSpeed(1);
     this.loadWorld(map);
     
-    this.boss = new Character(8,1, "SkeletronEvolved");
+    this.boss = new Character(18,1, "SkeletronEvolved");
     this.boss.showLifeLine();
-    this.bossPositions = [{x:8,y:1}, {x:6,y:0}, {x:8,y:0}, {x:7,y:1}, {x:8,y:2}, {x:6,y:2}, ];
+    this.bossPositions = [{x:18,y:1}, {x:16,y:0}, {x:18,y:0}, {x:17,y:1}, {x:18,y:2}, {x:16,y:2}, ];
     this.bossPositionsIndex = 1;
     setInterval($.proxy(function() {this.boss.setPosition(this.bossPositions[this.bossPositionsIndex]); this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) %this.bossPositions.length}, this), 1000);
 };
@@ -26,15 +26,6 @@ Controller.prototype.loadWorld = function(world) {
     arena.css("background-color", world.color);
 	this.map = world.map;
 	this.character.setPosition(0,0);
-    
-}
-
-Controller.prototype.addTree = function(x,y) {
-    $(".main").append($('<img class="arbre" src="images/arbre.gif" style="left: ' + (96*x-8) + 'px; top: ' + (96*y-8) + 'px">'));
-}
-
-Controller.prototype.addPortal = function(x,y) {
-    $(".main").append($('<img class="portal" src="images/portal.gif" style="left: ' + (96*x-8) + 'px; top: ' + (96*y-8) + 'px">'));
 }
 
 Controller.prototype.startMove = function() {
@@ -109,7 +100,7 @@ Controller.prototype.move = function() {
             return;
     }
     
-    if (p.x < 0 || p.x > 12 || p.y < 0 || p.y > 5
+    if (p.x < 0 || p.x > 120 || p.y < 0 || p.y > 5
         || this.map[p.y][p.x] == 1 && this.direction == this.UP
         || this.map[this.character.position.y][this.character.position.x] == 1 && this.direction == this.DOWN
         )
@@ -117,6 +108,9 @@ Controller.prototype.move = function() {
         this.character.stopMoving();
     } else {
         this.character.setPosition(p);
+        
+        var scroll = Math.min(0, -96*p.x + $("body").width()/2);
+        $(".viewport").css({left: scroll});
     }
     
     if (this.map[p.y][p.x] == 2) {

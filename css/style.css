@@ -3,7 +3,6 @@ body {
 	overflow: hidden;
 }
 .main {
-    #background-color: darkgreen;
 	height: 100%;
 }
 .character {
@@ -18,59 +17,17 @@ body {
     transition-timing-function: linear;
     overflow: hidden;
 }
-.arbre {
+.viewport {
+    transition: left 500ms, top 500ms;
+    transition-timing-function: linear;
     position: absolute;
-    z-index: 10;
-}
-.portal {
-    position: absolute;
-    z-index: 0;
-}
-.character-picker-button {
-    width: 48px;
-    height: 48px;
-    background-image: url("../images/pokeball.png");
-    z-index: 20;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    display: none;
-}
-.dialog-background {
-    width: 100%;
     height: 100%;
-    left: 0px;
     top: 0px;
-    position: absolute;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 100;
-}
-.character-picker {
-    background-color: blue;
-    display: none;
-    position: absolute;
     left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-    margin: auto;
-    width: 456px;
-    height: 272px;
-    border-style: solid;
-    border-width: 5px;
-    border-radius: 5px;
-    z-index: 100;
-}
-.character-button {
-    padding: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    float: left;
 }
 .background {
     height: 150px;
-    width: 2000px;
+    width: 5000px;
     background-image: url("../images/forest.jpg");
 }
 .lifeline  {

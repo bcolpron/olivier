@@ -1,6 +1,6 @@
 function Bullet(x, y, direction, target) {
     this.sprites = $('<div class="bullet"/>');
-    $("body").append(this.sprites);
+    $(".main").append(this.sprites);
 
     this.setClass("waterblast");
     this.setPosition(x,y);
