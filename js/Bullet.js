@@ -1,11 +1,11 @@
-function Bullet(x, y, direction, target) {
+function Bullet(x, y, direction, targets) {
     this.sprites = $('<div class="bullet"/>');
     $(".main").append(this.sprites);
 
     this.setClass("waterblast");
     this.setPosition(x,y);
     this.setDirection(direction);
-    this.target = target;
+    this.targets = targets;
 
     this.distance = 20;
     this.timer = setInterval($.proxy(this.travel, this), 250);
@@ -46,8 +46,9 @@ Bullet.prototype.setDirection = function(direction) {
 }
 
 Bullet.prototype.travel = function() {
-    if (this.target.isCollision(this.position)) {
-        this.target.hit(1);
+    var hit = this.targets.collisions(this);
+    if (hit) {
+        hit.hit(1);
         this.remove();
         return;
     }

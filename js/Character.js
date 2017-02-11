@@ -1,23 +1,26 @@
-function Character(x, y, class_) {
+function Character(x, y, class_, ext, collisionDetector) {
+    this.collisionDetector = collisionDetector;
     this.sprites = $('<div class="character"/>');
     $(".main").append(this.sprites);
 
-    this.setClass(class_);
+    ext = ext || "png";
+    this.setClass(class_, ext);
+    
     this.setPosition(x,y);
     this.setDirection(0);
     this.life = 30;
 }
 
-Character.prototype.setClass = function(class_) {
+Character.prototype.setClass = function(class_, ext) {
     this.class_ = class_;
-    var html = '<img class="sprite" src="images/' + this.class_ + '.png" style="">\
-        <img class="sprite" src="images/' + this.class_ + '-up.png" style="display: none">\
-        <img class="sprite" src="images/' + this.class_ + '-left.png" style="display: none">\
-        <img class="sprite" src="images/' + this.class_ + '-right.png" style="display: none">\
-        <img class="sprite" src="images/' + this.class_ + '-ani.png" style="display: none">\
-        <img class="sprite" src="images/' + this.class_ + '-aniup.png" style="display: none">\
-        <img class="sprite" src="images/' + this.class_ + '-anileft.png" style="display: none">\
-        <img class="sprite" src="images/' + this.class_ + '-aniright.png" style="display: none">';
+    var html = '<img class="sprite" src="images/' + this.class_ + '.' + ext + '" style="">\
+        <img class="sprite" src="images/' + this.class_ + '-up.' + ext + '" style="display: none">\
+        <img class="sprite" src="images/' + this.class_ + '-left.' + ext + '" style="display: none">\
+        <img class="sprite" src="images/' + this.class_ + '-right.' + ext + '" style="display: none">\
+        <img class="sprite" src="images/' + this.class_ + '-ani.' + ext + '" style="display: none">\
+        <img class="sprite" src="images/' + this.class_ + '-aniup.' + ext + '" style="display: none">\
+        <img class="sprite" src="images/' + this.class_ + '-anileft.' + ext + '" style="display: none">\
+        <img class="sprite" src="images/' + this.class_ + '-aniright.' + ext + '" style="display: none">';
     this.sprites.html(html);
 }
 
@@ -85,24 +88,13 @@ Character.prototype.remove = function() {
     this.sprites = null;
 }
 
-Character.prototype.isCollision = function(p) {
-    if (this.life <= 0) return false;
-    
-    if (p.x >= this.position.x && p.x < this.position.x + 5
-        && p.y >= this.position.y && p.y < this.position.y + 4)
-    {
-        if (p.y == this.position.y && p.x < this.position.x + 2) {
-            return false
-        }
-        return true;
-    }
-    return false;
-}
-
 Character.prototype.hit = function(dommage) {
     this.life -= dommage;
     this.updateLifeLine();
-    if (this.life <= 0) this.remove();
+    if (this.life <= 0) {
+        this.collisionDetector.remove(this);
+        this.remove();
+    }
 }
 
 Character.prototype.updateLifeLine = function() {

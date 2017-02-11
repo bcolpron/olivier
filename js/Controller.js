@@ -1,10 +1,17 @@
-function Controller(character, map) {
+function Controller(character, collisionDetector,map) {
     this.character = character;
+    this.collisionDetector = collisionDetector;
     this.setMovementSpeed(1);
     this.loadWorld(map);
     
-    this.boss = new Character(18,1, "SkeletronEvolved");
+    this.monster = new Character(9,0, "malecarbre", "gif", collisionDetector);
+    this.monster.showLifeLine();
+    this.collisionDetector.add(this.monster);
+    
+    this.boss = new Character(18,1, "SkeletronEvolved", "png", collisionDetector);
     this.boss.showLifeLine();
+    this.collisionDetector.add(this.boss);
+
     this.bossPositions = [{x:18,y:1}, {x:16,y:0}, {x:15,y:0}, {x:14,y:1}, {x:13,y:0}, {x:14,y:1}, {x:15,y:2}, {x:16,y:1}, {x:17,y:0}, {x:18,y:0}, {x:17,y:1}, {x:18,y:2}, {x:17,y:1}, {x:16,y:2}, {x:17,y:1}, ];
     this.bossPositionsIndex = 1;
     setInterval($.proxy(function() {this.boss.setPosition(this.bossPositions[this.bossPositionsIndex]); this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) %this.bossPositions.length}, this), 1000);
@@ -146,7 +153,7 @@ Controller.prototype.fire = function() {
     if (!this.canonBusy) {
         pos = this.character.position;
         direction = (this.character.direction & 3) == Character.prototype.LEFT ? Bullet.prototype.LEFT : Bullet.prototype.RIGHT; 
-        new Bullet(pos.x,pos.y, direction, this.boss);
+        new Bullet(pos.x,pos.y, direction, this.collisionDetector);
         this.canonBusy = true;
         setTimeout($.proxy(function() { this.canonBusy = false; }, this), 500);
     }
