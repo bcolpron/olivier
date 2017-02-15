@@ -10,16 +10,12 @@ CollisionDetector.prototype.remove = function(c) {
     _.remove(this.objects, function(x) { return x==c; });
 }
 
-CollisionDetector.prototype.collisions = function(o) {
-    return _.find(this.objects, function(i) {
-        console.log(i.position);
-        if (o.position.x >= i.position.x && o.position.x < i.position.x + 5
-            && o.position.y >= i.position.y && o.position.y < i.position.y + 4)
+CollisionDetector.prototype.collisions = function(a) {
+    return _.find(this.objects, function(b) {
+        if (a.position.x >= b.position.x && a.position.x < b.position.x + b.extents[0].length
+            && a.position.y >= b.position.y && a.position.y < b.position.y + b.extents.length)
         {
-            if (o.position.y == i.position.y && o.position.x < i.position.x + 2) {
-                return false
-            }
-            return true;
+            return b.extents[a.position.y - b.position.y][a.position.x - b.position.x];
         }
         return false;
     });

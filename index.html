@@ -36,7 +36,7 @@ worlds =
 $(function() {
 	window.game = {};
     game.detector = new CollisionDetector();
-    game.hero = new Character(0,0, "blastoise", "png", game.detector);
+    game.hero = new Character(0,0, "blastoise", "png");
     game.controller = new Controller(game.hero, game.detector, worlds.world1);
     game.keyboard = new KeyboardController(game.controller);
     game.picker = new CharacterPicker(game.controller);

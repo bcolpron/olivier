@@ -4,11 +4,11 @@ function Controller(character, collisionDetector,map) {
     this.setMovementSpeed(1);
     this.loadWorld(map);
     
-    this.monster = new Character(9,0, "malecarbre", "gif", collisionDetector);
+    this.monster = new Malecarbre(9,0);
     this.monster.showLifeLine();
     this.collisionDetector.add(this.monster);
     
-    this.boss = new Character(18,1, "SkeletronEvolved", "png", collisionDetector);
+    this.boss = new SkeletronEvolved(18,1);
     this.boss.showLifeLine();
     this.collisionDetector.add(this.boss);
 

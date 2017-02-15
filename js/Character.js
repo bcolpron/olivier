@@ -1,5 +1,5 @@
 function Character(x, y, class_, ext, collisionDetector) {
-    this.collisionDetector = collisionDetector;
+    this.collisionDetector = game.detector;
     this.sprites = $('<div class="character"/>');
     $(".main").append(this.sprites);
 
@@ -10,6 +10,8 @@ function Character(x, y, class_, ext, collisionDetector) {
     this.setDirection(0);
     this.life = 30;
 }
+
+Character.prototype.extents = [[1]];
 
 Character.prototype.setClass = function(class_, ext) {
     this.class_ = class_;
@@ -105,3 +107,26 @@ Character.prototype.showLifeLine = function() {
    this.sprites.append($('<div class="lifeline"><div class="total"><div class="remaining"></div></div></div>'));
    this.updateLifeLine();
 }
+
+
+function SkeletronEvolved(x, y) {
+    Character.call(this, x, y, "SkeletronEvolved", "png");
+}
+SkeletronEvolved.prototype = _.create(Character.prototype, {
+    'constructor': SkeletronEvolved
+});
+
+SkeletronEvolved.prototype.extents = [[0,0,1,0,0],
+                                      [1,1,1,1,1],
+                                      [1,1,1,1,1],
+                                      [1,1,1,1,1]];
+
+function Malecarbre(x, y) {
+    Character.call(this, x, y, "malecarbre", "gif");
+}
+Malecarbre.prototype = _.create(Character.prototype, {
+    'constructor': Malecarbre
+});
+
+Malecarbre.prototype.extents = [[1,1,1],
+                                [1,1,1]];
