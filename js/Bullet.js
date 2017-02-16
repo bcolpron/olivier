@@ -9,7 +9,7 @@ function Bullet(x, y, direction, targets) {
 
     this.distance = 20;
     this.timer = setInterval($.proxy(this.travel, this), 250);
-    this.travel();
+    setTimeout($.proxy(this.travel, this), 100);
 }
 
 Bullet.prototype.setClass = function(class_) {

@@ -10,6 +10,7 @@
     <script type="text/javascript" src="js/Bullet.js"></script>
     <script type="text/javascript" src="js/CharacterPicker.js"></script>
     <script type="text/javascript" src="js/CollisionDetector.js"></script>
+    <script type="text/javascript" src="js/LifeBar.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
 <script type="text/javascript">
@@ -40,6 +41,8 @@ $(function() {
     game.controller = new Controller(game.hero, game.detector, worlds.world1);
     game.keyboard = new KeyboardController(game.controller);
     game.picker = new CharacterPicker(game.controller);
+
+    game.lifeBar = new LifeBar();
 });
 
 </script>
@@ -49,11 +52,6 @@ $(function() {
 <body>
     <div class="headerbar">
         <div class="lifebar">
-            <div class="lostheart"></div>
-            <div class="heart"></div>
-            <div class="heart"></div>
-            <div class="heart"></div>
-            <div class="heart"></div>
         </div>
     </div>
     

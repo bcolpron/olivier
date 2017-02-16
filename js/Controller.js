@@ -115,6 +115,14 @@ Controller.prototype.move = function() {
         this.character.stopMoving();
     } else {
         this.character.setPosition(p);
+
+        if (this.collisionDetector.collisions(this.character)) {
+            game.lifeBar.update(-1);
+            if (game.lifeBar.life == 0) {
+                alert("Game Over");
+                window.location.reload();
+            }
+        }
         
         var scroll = Math.min(0, -96*p.x + $("body").width()/2);
         $(".viewport").css({left: scroll});
