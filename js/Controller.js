@@ -24,9 +24,6 @@ function Controller(character, collisionDetector,map, gamePad) {
 Controller.prototype.loadWorld = function(world) {
     this.world = world;
     
-    this.setScrollSpeed(0);
-    setTimeout($.proxy(this.setScrollSpeed, this, 1), 10);
-    
     var arena = $(".main")
     arena.css("background-color", world.color);
 	this.map = world.map;
@@ -69,10 +66,15 @@ Controller.prototype.update = function() {
         this.character.setPosition(p);
 
         if (this.collisionDetector.collisions(this.character)) {
-            game.lifeBar.update(-1);
-            if (game.lifeBar.life == 0) {
-                alert("Game Over");
-                window.location.reload();
+            if (!this.character.immunity) {
+                game.lifeBar.update(-1);
+                this.character.immunity = 15;
+                if (game.lifeBar.life == 0) {
+                    alert("Game Over");
+                    window.location.reload();
+                }
+            } else {
+                this.character.immunity--;
             }
         }
         
@@ -83,16 +85,6 @@ Controller.prototype.update = function() {
 
 Controller.prototype.setClass = function(c) {
     this.character.setClass(c);
-}
-
-Controller.prototype.setScrollSpeed = function(speed) {
-    var $element = $(".character");
-    if (speed != 0) {
-        //$element.css({transition: "left " + 500/speed + "ms, top " + 500/speed + "ms",
-        //                   "transition-timing-function": "linear"});
-    } else {
-        //$element.css({transition: "left 0ms, top 0ms"});
-    }
 }
 
 Controller.prototype.fire = function() {
