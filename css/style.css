@@ -7,19 +7,13 @@ body {
 }
 .character {
     position: absolute;
-    transition: left 500ms, top 500ms;
-    transition-timing-function: linear;
     overflow: hidden;
 }
 .bullet {
     position: absolute;
-    transition: left 250ms, top 250ms;
-    transition-timing-function: linear;
     overflow: hidden;
 }
 .viewport {
-    transition: left 500ms, top 500ms;
-    transition-timing-function: linear;
     position: absolute;
     height: 100%;
     top: 0px;

@@ -7,8 +7,8 @@ function Bullet(x, y, direction, targets) {
     this.setDirection(direction);
     this.targets = targets;
 
-    this.distance = 20;
-    this.timer = setInterval($.proxy(this.travel, this), 250);
+    this.distance = 240;
+    this.timer = setInterval($.proxy(this.travel, this), 20);
     setTimeout($.proxy(this.travel, this), 100);
 }
 
@@ -30,8 +30,8 @@ Bullet.prototype.setPosition = function(x,y) {
 
     this.position = {x:x, y:y};
     
-    var left = this.position.x * 96;
-    var top = this.position.y * 96 + 96;
+    var left = this.position.x * 8;
+    var top = this.position.y * 8 + 96;
 
     this.sprites.each(function(i,e){
         e.style.left = left;
