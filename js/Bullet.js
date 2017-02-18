@@ -12,6 +12,8 @@ function Bullet(x, y, direction, targets) {
     setTimeout($.proxy(this.travel, this), 100);
 }
 
+Bullet.prototype.extents = [[1]];
+
 Bullet.prototype.setClass = function(class_) {
     this.class_ = class_;
     var html = '<img class="sprite" src="images/' + this.class_ + '-left.png" style="">\
