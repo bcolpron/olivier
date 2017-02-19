@@ -25,6 +25,8 @@ Bullet.prototype.LEFT  = 0;
 Bullet.prototype.RIGHT = 1;
 
 Bullet.prototype.setPosition = function(x,y) {
+    if (!this.sprites) return;
+
     if  (typeof x === "object") {
         y = x.y;
         x = x.x;
@@ -63,7 +65,9 @@ Bullet.prototype.travel = function() {
 }
 
 Bullet.prototype.remove = function() {
-    clearInterval(this.timer);
-    this.sprites.remove();
-    this.sprites = null;
+    if (this.sprites) {
+        clearInterval(this.timer);
+        this.sprites.remove();
+        this.sprites = null;
+    }
 }

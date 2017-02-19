@@ -16,7 +16,16 @@ function Controller(character, collisionDetector,map, gamePad) {
                           {x:14*12,y:12}, {x:15*12,y:24}, {x:16*12,y:12}, {x:17*12,y:0}, {x:18*12,y:0},
                           {x:17*12,y:12}, {x:18*12,y:24}, {x:17*12,y:12}, {x:16*12,y:24}, {x:17*12,y:12}, ];
     this.bossPositionsIndex = 1;
-    setInterval($.proxy(function() {this.boss.setPosition(this.bossPositions[this.bossPositionsIndex]); this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) %this.bossPositions.length}, this), 1000);
+    setInterval($.proxy(function() {
+        var current = this.boss.getPosition();
+        var dst = this.bossPositions[this.bossPositionsIndex];
+        current.x += Math.sign(dst.x - current.x);
+        current.y += Math.sign(dst.y - current.y);
+        this.boss.setPosition(current);
+        if (current.x == dst.x && current.y == dst.y) {
+            this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) % this.bossPositions.length;
+        }
+    }, this), 40);
 
     this.timer = setInterval($.proxy(this.update, this), 40);
 };
