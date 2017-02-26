@@ -1,6 +1,6 @@
-function Controller(character, collisionDetector,map, gamePad) {
+function Controller(character, map, gamePad) {
     this.character = character;
-    this.collisionDetector = collisionDetector;
+    this.collisionDetector = new CollisionDetector();
     this.gamePad = gamePad;
     this.loadWorld(map);
     
@@ -26,6 +26,9 @@ function Controller(character, collisionDetector,map, gamePad) {
             this.bossPositionsIndex = (this.bossPositionsIndex + 1 ) % this.bossPositions.length;
         }
     }, this), 40);
+
+    this.portal = new Portal(260,12);
+    this.collisionDetector.add(this.portal);
 
     this.timer = setInterval($.proxy(this.update, this), 40);
 };
@@ -74,17 +77,9 @@ Controller.prototype.update = function() {
     } else {
         this.character.setPosition(p);
 
-        if (this.collisionDetector.collisions(this.character)) {
-            if (!this.character.immunity) {
-                game.lifeBar.update(-1);
-                this.character.immunity = 15;
-                if (game.lifeBar.life == 0) {
-                    alert("Game Over");
-                    window.location.reload();
-                }
-            } else {
-                this.character.immunity--;
-            }
+        var contact = this.collisionDetector.collisions(this.character);
+        if (contact) {
+            contact.hit(this.character);
         }
         
         var scroll = Math.min(0, -8*p.x + $("body").width()/2);

@@ -52,7 +52,7 @@ Bullet.prototype.setDirection = function(direction) {
 Bullet.prototype.travel = function() {
     var hit = this.targets.collisions(this);
     if (hit) {
-        hit.hit(1);
+        hit.inflictDamage(1);
         this.remove();
         return;
     }
