@@ -74,8 +74,9 @@ Character.prototype.inflictDamage = function(damage) {
 
 
 
-var Ennemy = inherit(Sprite, function(){
-    this.base.apply(this, arguments);
+var Ennemy = inherit(Sprite, function(x,y,imageUri,controller){
+    this.base(x,y,imageUri);
+    this.controller = controller;
     this.life = 30;
 });
 
@@ -96,13 +97,13 @@ Ennemy.prototype.inflictDamage = function(damage) {
     this.life -= damage;
     this.updateLifeLine();
     if (this.life <= 0) {
-        game.controller.collisionDetector.remove(this);
         this.remove();
+        this.controller.ennemyDefeated(this);
     }
 }
 
-var SkeletronEvolved = inherit(Ennemy, function(x, y) {
-    this.base(x, y, "images/SkeletronEvolved.png");
+var SkeletronEvolved = inherit(Ennemy, function(x, y, controller) {
+    this.base(x, y, "images/SkeletronEvolved.png", controller);
 });
 
 SkeletronEvolved.prototype.extents = [[0,0,1,0,0],
@@ -110,8 +111,8 @@ SkeletronEvolved.prototype.extents = [[0,0,1,0,0],
                                       [1,1,1,1,1],
                                       [1,1,1,1,1]];
 
-var Malecarbre = inherit(Ennemy, function(x, y) {
-    this.base(x, y, "images/malecarbre.gif");
+var Malecarbre = inherit(Ennemy, function(x, y, controller) {
+    this.base(x, y, "images/malecarbre.gif", controller);
 })
 
 Malecarbre.prototype.extents = [[1,1,1],
