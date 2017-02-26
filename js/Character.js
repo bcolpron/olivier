@@ -4,6 +4,7 @@ var Character = inherit(Sprite, function(x, y, class_, collisionDetector) {
 
     this.setClass(class_, "png");
     this.setDirection(0);
+    this.sprites.css({'z-index': 1000});
 })
 
 Character.prototype.extents = [[1]];

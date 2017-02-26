@@ -27,10 +27,12 @@ function Controller(character, map, gamePad) {
         }
     }, this), 40);
 
-    this.portal = new Portal(260,12);
+    this.portal = new Portal(260,12, this);
     this.collisionDetector.add(this.portal);
+    this.curtain = new Curtain();
 
     this.timer = setInterval($.proxy(this.update, this), 40);
+
 };
 
 Controller.prototype.loadWorld = function(world) {
@@ -99,4 +101,10 @@ Controller.prototype.fire = function() {
         this.canonBusy = true;
         setTimeout($.proxy(function() { this.canonBusy = false; }, this), 300);
     }   
+}
+
+Controller.prototype.levelDone = function() {
+    clearInterval(this.timer);
+    this.character.swirl();
+    this.curtain.close();
 }
