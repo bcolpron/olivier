@@ -104,7 +104,27 @@ Ennemy.prototype.inflictDamage = function(damage) {
 
 var SkeletronEvolved = inherit(Ennemy, function(x, y, controller) {
     this.base(x, y, "images/SkeletronEvolved.png", controller);
+
+    this.positions = [{x:18*12,y:12}, {x:16*12,y:0}, {x:15*12,y:0}, {x:14*12,y:12}, {x:13*12,y:0},
+                      {x:14*12,y:12}, {x:15*12,y:24}, {x:16*12,y:12}, {x:17*12,y:0}, {x:18*12,y:0},
+                      {x:17*12,y:12}, {x:18*12,y:24}, {x:17*12,y:12}, {x:16*12,y:24}, {x:17*12,y:12}, ];
+    this.positionsIndex = 1;
+    this.movementsTimer = setInterval($.proxy(function() {
+        var current = this.getPosition();
+        var dst = this.positions[this.positionsIndex];
+        current.x += Math.sign(dst.x - current.x);
+        current.y += Math.sign(dst.y - current.y);
+        this.setPosition(current);
+        if (current.x == dst.x && current.y == dst.y) {
+            this.positionsIndex = (this.positionsIndex + 1 ) % this.positions.length;
+        }
+    }, this), 40);
 });
+
+SkeletronEvolved.prototype.remove = function() {
+    clearInterval(this.movementsTimer);
+    Ennemy.prototype.remove.call(this);
+}
 
 SkeletronEvolved.prototype.extents = [[0,0,1,0,0],
                                       [1,1,1,1,1],
