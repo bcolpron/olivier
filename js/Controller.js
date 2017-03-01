@@ -1,7 +1,9 @@
-function Controller(character, map, gamePad) {
-    this.character = character;
+function Controller(map, game) {
+    this.character = new Character(0,0, "blastoise");
+    this.lifeBar = new LifeBar();
     this.collisionDetector = new CollisionDetector();
-    this.gamePad = gamePad;
+    this.game = game;
+    this.gamePad = game.gamePad;
     this.loadWorld(map);
     
     this.monster = new Malecarbre(9*12,0, this);
@@ -27,7 +29,6 @@ function Controller(character, map, gamePad) {
         }
     }, this), 40);
 
-    this.curtain = new Curtain();
 
     this.timer = setInterval($.proxy(this.update, this), 40);
 
@@ -35,7 +36,6 @@ function Controller(character, map, gamePad) {
 
 Controller.prototype.loadWorld = function(world) {
     this.world = world;
-    
     var arena = $(".main")
     arena.css("background-color", world.color);
 	this.map = world.map;
@@ -101,15 +101,24 @@ Controller.prototype.fire = function() {
     }   
 }
 
-Controller.prototype.levelDone = function() {
-    clearInterval(this.timer);
-    this.character.swirl();
-    this.curtain.close();
+Controller.prototype.pause = function() {
+    if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+    }
+}
+
+Controller.prototype.close = function() {
+    this.pause();
+    this.character.remove();
+    this.boss.remove();
+    this.monster.remove();
+    this.portal.remove();
 }
 
 Controller.prototype.ennemyDefeated = function(ennemy) {
     if (ennemy instanceof SkeletronEvolved) {
-        this.portal = new Portal(ennemy.position.x,ennemy.position.y, this);
+        this.portal = new Portal(ennemy.position.x,ennemy.position.y, this.game);
         this.collisionDetector.add(this.portal);
    }
    this.collisionDetector.remove(ennemy);

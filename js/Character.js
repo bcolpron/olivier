@@ -59,8 +59,8 @@ Character.prototype.stopMoving = function() {
 
 Character.prototype.inflictDamage = function(damage) {
     if (!this.immunity) {
-        game.lifeBar.update(-1);
-        if (game.lifeBar.life == 0) {
+        game.controller.lifeBar.update(-1);
+        if (game.controller.lifeBar.life == 0) {
             alert("Game Over");
             window.location.reload();
         }

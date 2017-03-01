@@ -67,7 +67,9 @@ Sprite.prototype.swirl = function() {
 }
 
 Sprite.prototype.remove = function() {
-    this.sprites.remove();
-    this.sprites = null;
+    if (this.sprites) {
+        this.sprites.remove();
+        this.sprites = null;
+    }
 }
 
