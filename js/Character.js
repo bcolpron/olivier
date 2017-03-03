@@ -160,3 +160,30 @@ Malecarbre.prototype.extents = [[1,1,1],
 Malecarbre.prototype.MAX_LIFE = 15;
 
 var M = Malecarbre;
+
+var Moonlord = inherit(Ennemy, function(x, y, controller) {
+    this.base(x, y, "images/moonlord.gif", controller);
+    this.life = this.MAX_LIFE;
+
+    this.setMovements([{x:x,y:y}, {x:x+12,y:y-12}, {x:x+24,y:y}, {x:x+12,y:y+12} ]);
+})
+
+Moonlord.prototype.extents = [[1]];
+
+Moonlord.prototype.MAX_LIFE = 170;
+
+var L = Moonlord;
+
+var Ocram = inherit(Ennemy, function(x, y, controller) {
+    this.base(x, y, "images/ocram.gif", controller);
+    this.life = this.MAX_LIFE;
+
+    this.setMovements([{x:x,y:y}, {x:x+12,y:y}, {x:x+24,y:y}, {x:x+36,y:y}, {x:x+48,y:y},
+                       {x:x+24,y:y+12}, {x:x,y:y-12}, {x:x+24,y:y} ]);
+})
+
+Ocram.prototype.extents = [[1,1]];
+
+Ocram.prototype.MAX_LIFE = 20;
+
+var O = Ocram;
