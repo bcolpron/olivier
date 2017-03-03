@@ -104,6 +104,28 @@ Ennemy.prototype.inflictDamage = function(damage) {
     }
 }
 
+Ennemy.prototype.setMovements = function(positions) {
+    var positionsIndex = 1;
+    this.movementsTimer = setInterval($.proxy(function() {
+        var current = this.getPosition();
+        var dst = positions[positionsIndex];
+        current.x += Math.sign(dst.x - current.x);
+        current.y += Math.sign(dst.y - current.y);
+        this.setPosition(current);
+        if (current.x == dst.x && current.y == dst.y) {
+            positionsIndex = (positionsIndex + 1 ) % positions.length;
+        }
+    }, this), 40);
+}
+
+Ennemy.prototype.remove = function() {
+    if (this.movementsTimer) {
+        clearInterval(this.movementsTimer);
+        this.movementsTimer = null;
+    }
+    Sprite.prototype.remove.call(this);
+}
+
 
 
 
@@ -111,26 +133,10 @@ var SkeletronEvolved = inherit(Ennemy, function(x, y, controller) {
     this.base(x, y, "images/SkeletronEvolved.png", controller);
     this.life = this.MAX_LIFE;
 
-    this.positions = [{x:x+60, y:y+12}, {x:x+36,y:y+0},   {x:x+24,y:y+0},  {x:x+12,y:y+12}, {x:x+0,y:y+0},
-                      {x:x+12,y:y+12},  {x:x+24,y:y+24},  {x:x+36,y:y+12}, {x:x+48,y:y+0},  {x:x+60, y:y+0},
-                      {x:x+48,y:y+12},  {x:x+60, y:y+24}, {x:x+48,y:y+12}, {x:x+36,y:y+24}, {x:x+48,y:y+12}, ];
-    this.positionsIndex = 1;
-    this.movementsTimer = setInterval($.proxy(function() {
-        var current = this.getPosition();
-        var dst = this.positions[this.positionsIndex];
-        current.x += Math.sign(dst.x - current.x);
-        current.y += Math.sign(dst.y - current.y);
-        this.setPosition(current);
-        if (current.x == dst.x && current.y == dst.y) {
-            this.positionsIndex = (this.positionsIndex + 1 ) % this.positions.length;
-        }
-    }, this), 40);
+    this.setMovements([{x:x+60,y:y+12}, {x:x+36,y:y+0},  {x:x+24,y:y+0},  {x:x+12,y:y+12}, {x:x+0, y:y+0},
+                       {x:x+12,y:y+12}, {x:x+24,y:y+24}, {x:x+36,y:y+12}, {x:x+48,y:y+0},  {x:x+60,y:y+0},
+                       {x:x+48,y:y+12}, {x:x+60,y:y+24}, {x:x+48,y:y+12}, {x:x+36,y:y+24}, {x:x+48,y:y+12} ]);
 });
-
-SkeletronEvolved.prototype.remove = function() {
-    clearInterval(this.movementsTimer);
-    Ennemy.prototype.remove.call(this);
-}
 
 SkeletronEvolved.prototype.MAX_LIFE = 30;
 
@@ -144,6 +150,8 @@ var S = SkeletronEvolved;
 var Malecarbre = inherit(Ennemy, function(x, y, controller) {
     this.base(x, y, "images/malecarbre.gif", controller);
     this.life = this.MAX_LIFE;
+
+    this.setMovements([{x:x,y:y}, {x:x+12,y:y}, {x:x+24,y:y}, {x:x+12,y:y+12} ]);
 })
 
 Malecarbre.prototype.extents = [[1,1,1],

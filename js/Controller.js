@@ -1,27 +1,35 @@
-function Controller(map, game) {
+function Controller(world, game) {
     this.character = new Character(0,0, "blastoise");
     this.lifeBar = new LifeBar();
     this.collisionDetector = new CollisionDetector();
     this.game = game;
     this.gamePad = game.gamePad;
-    this.loadWorld(map);
+    this.loadWorld(world);
     
-    this.monster = new Malecarbre(9*12,0, this);
-    this.monster.showLifeLine();
-    this.collisionDetector.add(this.monster);
-    
-    this.boss = new SkeletronEvolved(13*12,0, this);
-    this.boss.showLifeLine();
-    this.collisionDetector.add(this.boss);
-
     this.timer = setInterval($.proxy(this.update, this), 40);
 };
 
 Controller.prototype.loadWorld = function(world) {
-    this.world = world;
     var arena = $(".main")
     arena.css("background-color", world.color);
 	this.map = world.map;
+    this.monsters = [];
+
+    for (var y=0; y != this.map.length; ++y) {
+        for (var x=0; x != this.map[y].length; ++x) {
+            if (this.map[y][x] == 1) {
+                m.append($('<div class="tile" style="top: ' + y*96 + 'px; left: ' + x*96 + 'px"/>'));
+            } else if (this.map[y][x] != 0) {
+                var o = new (this.map[y][x])(x*12, y*12, this);
+                o.showLifeLine();
+                this.collisionDetector.add(o);
+                this.monsters.push(o);
+            }
+        }
+    }
+    world.init(game);
+
+
 	this.character.setPosition(0,0);
 }
 
@@ -94,9 +102,10 @@ Controller.prototype.pause = function() {
 Controller.prototype.close = function() {
     this.pause();
     this.character.remove();
-    this.boss.remove();
-    this.monster.remove();
     this.portal.remove();
+    _.each(this.monsters, function(m) {
+        m.remove();
+    })
 }
 
 Controller.prototype.ennemyDefeated = function(ennemy) {
@@ -105,4 +114,5 @@ Controller.prototype.ennemyDefeated = function(ennemy) {
         this.collisionDetector.add(this.portal);
    }
    this.collisionDetector.remove(ennemy);
+   _.remove(this.monsters, _.identity(ennemy));
 }

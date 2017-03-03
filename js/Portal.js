@@ -11,6 +11,6 @@ Portal.prototype.extents = [[0,1,0],
 Portal.prototype.hit = function(character) {
     if (character.position.x > this.position.x) {
         character.swirl();
-        this.game.loadWorld("world1");
+        this.game.loadWorld(game.world.nextWorld);
     }
 }
