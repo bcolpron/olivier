@@ -77,11 +77,13 @@ Character.prototype.inflictDamage = function(damage) {
 var Ennemy = inherit(Sprite, function(x,y,imageUri,controller){
     this.base(x,y,imageUri);
     this.controller = controller;
-    this.life = 30;
+    this.life = 1;
 });
 
+Ennemy.prototype.MAX_LIFE = 1;
+
 Ennemy.prototype.updateLifeLine = function() {
-    this.sprites.find(".remaining").width(100*this.life/30);
+    this.sprites.find(".remaining").width(100*this.life/this.MAX_LIFE);
 }
 
 Ennemy.prototype.showLifeLine = function() {
@@ -102,12 +104,16 @@ Ennemy.prototype.inflictDamage = function(damage) {
     }
 }
 
+
+
+
 var SkeletronEvolved = inherit(Ennemy, function(x, y, controller) {
     this.base(x, y, "images/SkeletronEvolved.png", controller);
+    this.life = this.MAX_LIFE;
 
-    this.positions = [{x:18*12,y:12}, {x:16*12,y:0}, {x:15*12,y:0}, {x:14*12,y:12}, {x:13*12,y:0},
-                      {x:14*12,y:12}, {x:15*12,y:24}, {x:16*12,y:12}, {x:17*12,y:0}, {x:18*12,y:0},
-                      {x:17*12,y:12}, {x:18*12,y:24}, {x:17*12,y:12}, {x:16*12,y:24}, {x:17*12,y:12}, ];
+    this.positions = [{x:x+60, y:y+12}, {x:x+36,y:y+0},   {x:x+24,y:y+0},  {x:x+12,y:y+12}, {x:x+0,y:y+0},
+                      {x:x+12,y:y+12},  {x:x+24,y:y+24},  {x:x+36,y:y+12}, {x:x+48,y:y+0},  {x:x+60, y:y+0},
+                      {x:x+48,y:y+12},  {x:x+60, y:y+24}, {x:x+48,y:y+12}, {x:x+36,y:y+24}, {x:x+48,y:y+12}, ];
     this.positionsIndex = 1;
     this.movementsTimer = setInterval($.proxy(function() {
         var current = this.getPosition();
@@ -126,14 +132,23 @@ SkeletronEvolved.prototype.remove = function() {
     Ennemy.prototype.remove.call(this);
 }
 
+SkeletronEvolved.prototype.MAX_LIFE = 30;
+
 SkeletronEvolved.prototype.extents = [[0,0,1,0,0],
                                       [1,1,1,1,1],
                                       [1,1,1,1,1],
                                       [1,1,1,1,1]];
 
+var S = SkeletronEvolved;
+
 var Malecarbre = inherit(Ennemy, function(x, y, controller) {
     this.base(x, y, "images/malecarbre.gif", controller);
+    this.life = this.MAX_LIFE;
 })
 
 Malecarbre.prototype.extents = [[1,1,1],
                                 [1,1,1]];
+
+Malecarbre.prototype.MAX_LIFE = 15;
+
+var M = Malecarbre;

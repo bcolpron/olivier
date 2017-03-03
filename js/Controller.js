@@ -10,7 +10,7 @@ function Controller(map, game) {
     this.monster.showLifeLine();
     this.collisionDetector.add(this.monster);
     
-    this.boss = new SkeletronEvolved(18*12,12, this);
+    this.boss = new SkeletronEvolved(13*12,0, this);
     this.boss.showLifeLine();
     this.collisionDetector.add(this.boss);
 
