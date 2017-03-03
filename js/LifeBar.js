@@ -1,7 +1,7 @@
 function LifeBar() {
     this.container = $(".lifebar");
     this.total = 5;
-    this.life = 4;
+    this.life = 5;
     this.update(0);
 }
 
