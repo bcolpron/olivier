@@ -1,4 +1,4 @@
-var SkeletronEvolved = inherit(Ennemy, function(x, y, controller) {
+var SkeletronEvolved = inherit(Boss, function(x, y, controller) {
     this.base(x, y, "images/SkeletronEvolved.png", controller);
     this.life = this.MAX_LIFE;
 

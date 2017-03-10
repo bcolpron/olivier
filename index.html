@@ -10,6 +10,7 @@
     <script type="text/javascript" src="js/Character.js"></script>
     <script type="text/javascript" src="js/SkeletronEvolved.js"></script>
     <script type="text/javascript" src="js/Ocram.js"></script>
+    <script type="text/javascript" src="js/OcramKing.js"></script>
     <script type="text/javascript" src="js/Malecarbre.js"></script>
     <script type="text/javascript" src="js/Moonlord.js"></script>
     <script type="text/javascript" src="js/Golem.js"></script>
@@ -29,11 +30,27 @@ $(function() {
     var M = Malecarbre;
     var L = Moonlord;
     var O = Ocram;
+    var K = OcramKing;
     var G = Golem;
 
 	worlds =
 	{
-		world7:
+        world8:
+        {
+            color: "darkgreen",
+            map: [
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+                [0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+                [0,0,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,K,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+                [0,0,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+                [0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
+            ],
+            nextWorld: "world9",
+            init: function(game) {
+            }
+        },
+		world9:
 		{
 			color: "darkgreen",
 			map: [
@@ -44,11 +61,11 @@ $(function() {
 				[0,0,0,0,0,0,0,0,0,M,0,0,0,0,0,0,0,0,0,M,0,0,0,0,0,M,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 			],
-			nextWorld: "world8",
+			nextWorld: "world10",
 			init: function(game) {
 			}
 		},
-		world8:
+		world10:
 		{
 			color: "darkslategray",
 			map: [
@@ -59,14 +76,14 @@ $(function() {
 				[0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 				[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,O,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
 			],
-			nextWorld: "world7",
+			nextWorld: "world8",
 			init: function(game) {
 			}
 		},
 	}
 
     window.game = new Game(worlds);
-    game.loadWorld("world7");
+    game.loadWorld("world8");
 });
 
 </script>

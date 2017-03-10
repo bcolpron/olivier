@@ -109,7 +109,7 @@ Controller.prototype.close = function() {
 }
 
 Controller.prototype.ennemyDefeated = function(ennemy) {
-    if (ennemy instanceof SkeletronEvolved) {
+    if (ennemy instanceof Boss) {
         this.portal = new Portal(ennemy.position.x,ennemy.position.y, this.game);
         this.collisionDetector.add(this.portal);
    }

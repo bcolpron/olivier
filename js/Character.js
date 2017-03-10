@@ -125,3 +125,7 @@ Ennemy.prototype.remove = function() {
     }
     Sprite.prototype.remove.call(this);
 }
+
+var Boss = inherit(Ennemy, function(x,y,imageUri,controller){
+    this.base(x, y, imageUri, controller);
+});

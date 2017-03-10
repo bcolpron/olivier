@@ -1,4 +1,4 @@
-var Moonlord = inherit(Ennemy, function(x, y, controller) {
+var Moonlord = inherit(Boss, function(x, y, controller) {
     this.base(x, y, "images/moonlord.gif", controller);
     this.life = this.MAX_LIFE;
 
